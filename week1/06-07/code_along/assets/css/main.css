@@ -1,0 +1,23 @@
+.navbar {
+  margin-bottom: 0px;
+}
+
+.hero {
+  background-image: url("https://unsplash.it/1900/1080?image=1076");
+  height: 400px;
+  background-size: cover;
+}
+
+.central-image {
+  margin: 110px;
+}
+
+.section-content {
+  padding: 30px 0;
+}
+
+.second-hero {
+  background-image: url("https://unsplash.it/1900/1080?image=1081");
+  height: 400px;
+  background-size: cover;
+}
