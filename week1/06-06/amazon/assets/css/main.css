@@ -1,0 +1,46 @@
+img.logo {
+  height: 100%;
+  width: 150px;
+}
+
+.form {
+  border: 1px #ddd solid;
+  border-radius: 4px;
+}
+
+.form-content {
+  padding: 10px 30px;
+}
+
+.form form input {
+  margin: 0 0 10px ;
+}
+
+#email {
+  box-shadow: inset 0 0 1px #000;
+}
+
+#login {
+  background-color: #f3d078;
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b)
+}
+
+h5.background {
+  position: relative;
+  z-index: 1;
+}
+h5.background:before {
+  border-top: 2px solid #dfdfdf;
+  content:"";
+  margin: 0 auto; /* this centers the line to the full width specified */
+  position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+  top: 50%; left: 0; right: 0; bottom: 0;
+  width: 95%;
+  z-index: -1;
+}
+
+h5.background span { 
+  /* to hide the lines from behind the text, you have to set the background color the same as the container */ 
+  background: #fff; 
+  padding: 0 15px; 
+}
