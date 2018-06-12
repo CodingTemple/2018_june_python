@@ -1,0 +1,19 @@
+body {
+  background: url("../images/nza_background.jpg") no-repeat fixed;
+}
+
+#page {
+  background-color: #fff;
+}
+
+.main {
+  width: 950px;
+}
+
+.logo img {
+  padding: 40px 60px 30px;
+}
+
+header nav li {
+  display: inline;
+}
