@@ -1,5 +1,6 @@
 import os
 from IPython.display import clear_output
+from collections import Counter
 
 def show_instructions():
     print("Enter 'ADD' to add to your list of items")
@@ -12,6 +13,14 @@ def show_instructions():
 # Specifically for the terminal/command prompt
 def clear_screen():
     os.system("cls" if os.name == 'nt' else 'clear')
+    
+class ListItem:
+    def __init__(self, name):
+        self.name = name
+        self.quantity = 1
+        
+    def __str__(self):
+        return f"<ListItem: {self.name}>"
 
 def addItem(a_list, new_item): # added a_list argument
     a_list.append(new_item)
@@ -19,4 +28,5 @@ def addItem(a_list, new_item): # added a_list argument
     clear_output()
     
 def show_list(a_list): # added a_list argument
-    [print(f"{i+1}: {a_list[i]}") for i in range(len(a_list))]
+    for k, v in Counter(a_list).items():
+        print(f"{k} {[v]}")
