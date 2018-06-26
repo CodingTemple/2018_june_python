@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  {% if name %}
+    <h1>Hello, {{ name }}!</h1>
+    <hr>
+  {% for product in products %}
+    <p>{{ product.name }}</p>
+    <p>{{ "${:,.2f}".format(product.price) }}</p>
+    <p>{{ product.available }}</p>
+  {% endfor %}
+  {% else %}
+    <h1>Hello, Guest!</h1>
+  {% endif %}
+{% endblock %}
