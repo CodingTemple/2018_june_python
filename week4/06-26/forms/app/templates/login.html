@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block app_content %}
+  <h1>This is the login page</h1>
+  <form action="" method="POST" role="form">
+    {{ form.hidden_tag() }}
+    <legend>Login Form</legend>
+    <div class="form-group">
+      {{ form.email.label }}
+      {{ form.email(class='form-control') }}
+    </div>
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class='form-control') }}
+    </div>
+    {{ form.remember_me }}
+    {{ form.remember_me.label }}
+    {{ form.submit(class='btn btn-default') }}
+  </form>
+{% endblock %}
