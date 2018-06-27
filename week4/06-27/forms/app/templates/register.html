@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block app_content %}
+  <h1>This is the Register page</h1>
+  <hr>
+  <form action="" method="POST" role="form">
+    {{ form.hidden_tag() }}
+    <legend>Regstration Form</legend>
+    <div class="form-group">
+      {{ form.email.label }}
+      {{ form.email(size=100, class='form-control') }}
+    </div>
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class='form-control') }}
+    </div>
+    <div class="form-group">
+      {{ form.password2.label }}
+      {{ form.password2(class='form-control') }}
+    </div>
+    {{ form.submit(class='btn btn-default') }}
+  </form>
+{% endblock %}
