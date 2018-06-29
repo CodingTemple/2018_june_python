@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block app_content %}
+<h1>Admin Panel</h1>
+<div class="col-md-6">
+  <form action="" method="POST" role="form">
+    {{ form.hidden_tag() }}
+    <legend>Add New User</legend>
+    <div class="form-group">
+      {{ form.email.label }}
+      {{ form.email(class='form-control') }}
+    </div>
+    {{ form.submit(class='btn btn-success') }}
+  </form>
+</div>
+<div class="col-md-6">
+  {% for u in users %}
+  <div class="row text-right">
+    {{ u.email }}
+    <span>
+      <a class="btn btn-danger" href="/delete_user/{{ u.id }}">Delete</a>
+    </span>
+  </div>
+  <hr>
+  {% endfor %}
+</div>
+
+{% endblock %}
