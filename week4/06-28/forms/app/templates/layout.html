@@ -15,14 +15,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url_for('index') }}">Flask Stuff</a>
+      <a class="navbar-brand" href="{{ url_for('index') }}">
+        {% if not current_user.admin %}
+        Flask Stuff
+        {% else %}
+        Admin Panel
+        {% endif %}
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
+        {% if not current_user.admin %}
         <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
-        {% if current_user.admin %}
+        {% else %}
         <li><a href="{{ url_for('admin') }}">Admin</a></li>
         {% endif %}
       </ul>
@@ -31,6 +38,7 @@
           <li><a href="{{ url_for('login') }}">Login</a></li>
           <li><a href="{{ url_for('register') }}">Register</a></li>
         {% else %}
+          <li><a href="{{ url_for('profile') }}">Profile</a></li>
           <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% endif %}
       </ul>
@@ -44,16 +52,18 @@ from our application #}
 
 {% block content %}
   <div class="container">
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>{{ message }}</strong>
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+    <div class="col-md-12">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-info">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>{{ message }}</strong>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
     {% block app_content %}
     {% endblock %}
   </div>

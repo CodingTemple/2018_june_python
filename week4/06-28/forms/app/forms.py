@@ -25,3 +25,9 @@ class LoginForm(FlaskForm):
 class AdminForm(FlaskForm):
   email = StringField('Email', validators=[DataRequired(), Email()])
   submit = SubmitField('Add User')
+
+class ProfileForm(FlaskForm):
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  password = PasswordField('Password', validators=[DataRequired()])
+  password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+  submit = SubmitField('Add User')

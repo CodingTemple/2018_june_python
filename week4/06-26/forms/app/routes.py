@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from app.forms import RegistrationForm, LoginForm
 
 @app.route('/')
@@ -10,6 +10,7 @@ def index():
 def login():
   form=LoginForm()
   if form.validate_on_submit():
+    flash("You are logged in!")
     return redirect('/')
   return render_template('login.html', form=form)
 

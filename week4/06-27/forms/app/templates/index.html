@@ -3,5 +3,7 @@
 {% block app_content %}
   {% if current_user.is_active %}
     <h1>This is the index page</h1>
+    <hr>
+    <h2>{{ current_user.email }}</h2>
   {% endif %}
 {% endblock %}

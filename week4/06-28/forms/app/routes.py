@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash, request
-from app.forms import RegistrationForm, LoginForm, AdminForm
+from app.forms import RegistrationForm, LoginForm, AdminForm, ProfileForm
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User
 from werkzeug.urls import url_parse
@@ -77,3 +77,25 @@ def delete_user(id):
   db.session.delete(user)
   db.session.commit()
   return redirect(url_for('admin'))
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+  form = ProfileForm()
+  form.email.data = current_user.email
+  context = {
+    'form': form
+  }
+  if form.validate_on_submit():
+    db_email = User.query.filter_by(email=form.email.data)
+    if current_user.email == form.email.data:
+      flash('You already own that email. No change needed')
+    if db_email is not None and not db_email != current_user.email:
+      flash("That email is already taken. Try again.")
+      return redirect(url_for('profile'))
+    current_user.email = form.email.data
+    current_user.set_password(form.password.data)
+    flash("Profile has been updated")
+    db.session.commit()
+    return redirect(url_for('profile'))
+  return render_template('profile.html', **context)
