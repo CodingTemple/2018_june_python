@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Alex",
+    "age": 20,
+    "hasWindows": true
+  },
+  {
+    "name": "Robert",
+    "age": 22,
+    "hasWindows": false
+  },
+  {
+    "name": "Meg",
+    "age": 25,
+    "hasWindows": true
+  }
+]
