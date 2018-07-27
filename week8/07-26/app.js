@@ -12,7 +12,7 @@ $('#weatherForm').on("submit", (e) => {
   $.get(url, data => {
     if(units === 'metric')
     {
-      measurement = "km";
+      measurement = "kph";
       degrees = "C"
     }
     $('#weatherPanel').css("display", "block");
