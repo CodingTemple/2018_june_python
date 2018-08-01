@@ -1,56 +1,37 @@
 import React, {Component} from 'react';
+import ReviewsList from '../ReviewsList';
+import AddReview from '../AddReview';
 
 class Reviews extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      reviews: []
+    }
+  }
+
+  addReview(submittedReview) {
+    this.setState(state => ({reviews: state.reviews.concat([submittedReview])}))
+  }
+
   render() {
-
-    const reviews = this.props.gem.reviews;
-
+    if(this.state.reviews.length === 0){
+      this.state.reviews  = this.props.gem.reviews;
+    }
+    console.log(this.state.reviews);
     return(
       <ul className="list-unstyled">
         <h4>Reviews</h4>
         <li>
-          <blockquote>
-            <strong>Stars { reviews.rating }</strong>
-            { reviews.body }
-            <cite className="clearfix">
-              &mdash;{ reviews.author }
-            </cite>
-          </blockquote>
-
-          {/* <!-- Live Preview --> */}
-          {/* <blockquote>
-            <strong>Stars { newReview.rating }</strong>
-            { newReview.body }
-            <cite className="clearfix">
-              &mdash;{ newReview.author }
-            </cite>
-          </blockquote> */}
-          {/* <!-- Live Preview --> */}
+          <ReviewsList reviews={this.state.reviews} />
 
           {/* <!-- Review Form --> */}
-          <form action="">
-            <h4>Submit a Review</h4>
-            <fieldset className="form-group">
-              <select name="rating" className="form-control" title="Stars">
-                <option disabled>Rate the Product</option>
-                <option value="1">★</option>
-                <option value="2">★★</option>
-                <option value="3">★★★</option>
-                <option value="4">★★★★</option>
-                <option value="5">★★★★★</option>
-              </select>
-            </fieldset>
-            <fieldset className="form-group">
-              <textarea name="body"
-                className="form-control" cols="30" rows="10" placeholder="Write a short review of the product..."></textarea>
-            </fieldset>
-            <fieldset className="form-group">
-              <input name="author" type="text" className="form-control" placeholder="Derek" title="Name" />
-            </fieldset>
-            <fieldset className="form-group">
-              <input type="submit" value="Submit Review" className="btn btn-primary pull-right" />
-            </fieldset>
-          </form>
+          <h4>Submit a Review</h4>
+          <AddReview onAddReview={addedReview => {
+            this.addReview(addedReview);
+            console.log(addedReview);
+          }} />
         </li>
       </ul>
     );
