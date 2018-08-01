@@ -2,35 +2,40 @@ import React, {Component} from 'react';
 import Description from './tabs/Description';
 import Specs from './tabs/Specs';
 import Reviews from './tabs/Reviews';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class ProductTab extends Component {
+  handleClick = (e) => e.preventDefault();
+  
   render() {
-
     const gem = this.props.gem;
 
     return(
       <div>
-        <ul className="nav nav-pills">
-          <li>
-            <a href="">Description</a>
-          </li>
-          <li>
-            <a href="">Specs</a>
-          </li>
-          <li>
-            <a href="">Reviews</a>
-          </li>
-        </ul>
+        <Tabs defaultIndex={0} selectedTabClassName="active">
+          <TabList>
+            <ul className="nav nav-pills">
+              <Tab><a href="" onClick={this.handleClick}>Description</a></Tab>
+              <Tab><a href="" onClick={this.handleClick}>Specs</a></Tab>
+              <Tab><a href="" onClick={this.handleClick}>Reviews</a></Tab>
+            </ul>
+          </TabList>
 
-        {/* Description Tab */}
-        <Description gem={gem} />
+          {/* Description Tab */}
+          <TabPanel>
+            <Description gem={gem} />
+          </TabPanel>
 
-        {/* Specs Tab */}
-        <Specs />
+          {/* Specs Tab */}
+          <TabPanel>
+            <Specs />
+          </TabPanel>
 
-        {/* Reviews */}
-        <Reviews gem={gem} />
+          {/* Reviews */}
+          <TabPanel>
+            <Reviews gem={gem} />
+          </TabPanel>
+        </Tabs>
       </div>
     );
   }

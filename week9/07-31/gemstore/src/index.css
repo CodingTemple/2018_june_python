@@ -11,3 +11,7 @@ body {
 .button-container {
   margin: 25px 0;
 }
+
+.react-tabs__tab-list {
+  padding-left: 0;
+}
