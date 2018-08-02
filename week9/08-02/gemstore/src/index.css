@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.list-group-item {
+  margin-bottom: 25px;
+}
+
+.button-container {
+  margin: 25px 0;
+}
+
+.react-tabs__tab-list {
+  padding-left: 0;
+}
