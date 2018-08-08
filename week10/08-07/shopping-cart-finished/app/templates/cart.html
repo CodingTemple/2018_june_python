@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+	{{ title }} | {{ super() }}
+{% endblock %} 
+
+{% block app_content %}
+	<div class="container">
+		<div class="col-md-12">
+			<h1>This is the cart page</h1>
+		</div>
+		<div class="col-md-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Quantity</th>
+						<th class="text-center">Price</th>
+						<th class="text-center">Total</th>
+						<th>
+							<a href="{{ url_for('clear_cart') }}" class="btn btn-warning">Clear Cart</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for k, v in display_cart.items() %}
+					<tr>
+						<td class="col-sm-8 col-md-6">
+							<div class="media">
+								<a class="thumbnail pull-left" href="#">
+									<img class="media-object" src="{{ v["image"] }}" alt="{{ v["name"] }}" style="width: 72px; height: 72px;"> </a>
+								<div class="media-body">
+									<h4 class="media-heading">
+										<a href="#">{{ v["name"] }}</a>
+									</h4>
+									<span>Status: </span>
+									<span class="text-success">
+										<strong>In Stock</strong>
+									</span>
+								</div>
+							</div>
+						</td>
+						<td class="col-sm-1 col-md-1" style="text-align: center">
+							<div class="col-sm-1 col-md-1 text-center">
+								<strong>{{ v["qty"] }}</strong>
+							</div>
+						</td>
+						<td class="col-sm-1 col-md-1 text-center">
+							<strong>{{ '${:.2f}'.format(v["price"]) }}</strong>
+						</td>
+						<td class="col-sm-1 col-md-1 text-center">
+							<strong>{{ '${:.2f}'.format(v["price"] * v["qty"]) }}</strong>
+						</td>
+						<td class="col-sm-1 col-md-1">
+							<a href="/remove_item/{{ v[" id "] }}" class="btn btn-danger">
+								<span class="glyphicon glyphicon-remove"></span> Remove</a>
+						</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td>   </td>
+						<td>   </td>
+						<td>   </td>
+						<td>
+							<h3>Total</h3>
+						</td>
+						<td class="text-right">
+							<h3>
+								<strong>{{ '${:.2f}'.format(total) }}</strong>
+							</h3>
+						</td>
+					</tr>
+					<tr>
+						<td>   </td>
+						<td>   </td>
+						<td>   </td>
+						<td>
+							<a href="{{ url_for('index') }}" class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping</a>
+						</td>
+						<td>
+							<script src="https://checkout.stripe.com/checkout.js"></script>
+							<form id="chargeForm" method="POST" action="{{ url_for('charge') }}">
+								<input type="hidden" id="stripeToken" name="stripeToken" />
+								<input type="hidden" id="stripeEmail" name="stripeEmail" />
+								<button type="submit" id="submit" class="btn btn-success">Checkout <span class="glyphicon glyphicon-play"></span></button>
+							</form>
+							<!-- <form action="{{ url_for('charge') }}" method='POST'>
+								<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+									data-key="{{ key }}"
+									data-description="A Flask Charge"
+									data-amount="500"
+									data-locale="auto"></script>
+							</form> -->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+
+	<script>
+		var handler = StripeCheckout.configure({
+			key: {{ key }},
+			locale: 'auto',
+			token: token => {
+				$("#stripeToken").val(token.id);
+				$("#stripeEmail").val(token.email);
+				$('#chargeForm').submit();
+			}
+		});
+
+		$('#submit').on('click', e => {
+			handler.open({
+				name: 'Customer Name',
+				description: 'Flask Payment',
+				amount: {{ amount }}
+			})
+			e.preventDefault();
+		});
+
+		$(window).on('popstate', () => handler.close());
+	</script>
+{% endblock %}

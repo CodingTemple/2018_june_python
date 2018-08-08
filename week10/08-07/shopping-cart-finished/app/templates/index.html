@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ title }} | {{ super() }}
+{% endblock %}
+
+{% block app_content %}
+<div class="container">
+  <div class="col-md-12">
+    <h1>This is the Index Page</h1>
+  </div>
+  {% for product in Products %}
+    <div class="col-md-3 product">
+      <img class="img-responsive" src="{{ product.image }}" alt="{{ product.name }}">
+      <h4>{{ product.name }}</h4>
+      <h5>{{ '${:.2f}'.format(product.price) }}</h5>
+      <a href="/add_to_cart/{{ product.id }}" class="btn btn-success">Add to cart</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
